@@ -1,4 +1,6 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -40,6 +42,12 @@ connectDB()
 
 // Routes
 app.use("/api/auth", authRoute);
-app.use("/api/transaction", transactionRoute)
+app.use("/api/transaction", transactionRoute);
+app.get("/api/test-env", (req, res) => {
+    res.json({
+        mongoUri: process.env.MONGO_URI ? "defined" : "undefined",
+        nodeEnv: process.env.NODE_ENV,
+    });
+});
 
 module.exports = app;

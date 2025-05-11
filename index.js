@@ -23,7 +23,7 @@ const clientOptions = {
 // Database connection
 async function connectDB() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, clientOptions);
+        await mongoose.connect(process.env.MONGO_URI.toString(), clientOptions);
 
         console.log("Successfully connect to the MongoDB");
     } catch (error) {

@@ -8,6 +8,7 @@ const authRoute = require("./routes/authRoute");
 const transactionRoute = require("./routes/transactionRoute");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const swaggerDocs = require("./document/swagger.js");
 
 const app = express();
 
@@ -33,6 +34,8 @@ async function connectDB() {
         process.exit(1);
     }
 }
+
+swaggerDocs(app);
 
 connectDB()
     .then(() => {

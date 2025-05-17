@@ -8,7 +8,6 @@ const authRoute = require("./routes/authRoute");
 const transactionRoute = require("./routes/transactionRoute");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const swaggerDocs = require("./document/swagger.js");
 
 const app = express();
 
@@ -35,8 +34,6 @@ async function connectDB() {
     }
 }
 
-swaggerDocs(app);
-
 connectDB()
     .then(() => {
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
@@ -46,11 +43,5 @@ connectDB()
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/transaction", transactionRoute);
-app.get("/api/test-env", (req, res) => {
-    res.json({
-        mongoUri: process.env.MONGO_URI ? "defined" : "undefined",
-        nodeEnv: process.env.NODE_ENV,
-    });
-});
 
 module.exports = app;
